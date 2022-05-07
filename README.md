@@ -1,6 +1,6 @@
-# Frontend-COIN
+# Frontend-judgment
 
-front end of COIN
+front end of judgment
 
 ### 提交格式要求：
 
