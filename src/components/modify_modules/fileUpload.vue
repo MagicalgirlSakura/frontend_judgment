@@ -34,9 +34,6 @@ export default {
         alert("文件过大，应不大于100MB");
       }
       else{
-        // this.file_content=this.file;
-        // var formData=new FormData(form);
-        // formData.append("data","fileContent");
         let reader=new FileReader();
         reader.readAsText(this.file);
         reader.onload=function(){

@@ -362,8 +362,6 @@ export default {
             var tar_y2=y2-(radius/c)*(y2-y1);
             return "M "+tar_x1+" "+tar_y1+" L "+tar_x2+" "+tar_y2
           })
-
-
       }
 
       function nodeBoundaryCheck(d){
