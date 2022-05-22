@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="upload" >
-      <div  @click="openUploader">上传文书</div>
+      <div  @click="openUploader">选择文书</div>
 <!--      <a href="javascript:;" class="file">-->
 <!--        <input name="file" type="file" @change="checkFile($event)" class="GraphUpload" accept=".pdf" autocomplete="off" >选择文件-->
 <!--      </a>-->
