@@ -17,6 +17,11 @@ export default new Router({
       path:"/qualityshow",
       name: "qualityshow",
       component: () => import("../components/qualityshow.vue"),
+    },
+    {
+      path:"/list",
+      name: "list",
+      component: () => import("../components/wenshuList.vue"),
     }
   ]
 })

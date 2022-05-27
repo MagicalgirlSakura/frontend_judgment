@@ -12,7 +12,7 @@
           name="file"
           :multiple="true"
           :remove="handleRemove"
-          action="http://localhost:8080/api/score/score"
+          action="http://localhost:8080/api/file/upload"
           @change="handleChange">
           <p class="ant-upload-drag-icon">
             <a-icon type="inbox"/>
@@ -21,102 +21,101 @@
           <p class="ant-upload-hint">可选中一个或多个文件进行上传</p>
         </a-upload-dragger>
       </a-modal>
+      <a-modal v-model="showWenshuList">
+        <wenshu-list v-if="showWenshuList" :fileList="fileList"></wenshu-list>
+      </a-modal>
     </div>
   </div>
 </template>
 
 <script>
+import WenshuList from '../wenshuList.vue';
+
 export default {
-  name: "fileUpload",
-  data(){
-    return{
-      "file": null,
-      "file_content": "",
-      obj:{},
-      uploader: false,
-      uploading: false,
-      fileList:[]
-    }
-  },
-  methods: {
-    openUploader() {
-      this.uploader = true;
+    name: "fileUpload",
+    data() {
+        return {
+            "file": null,
+            "file_content": "",
+            obj: {},
+            uploader: false,
+            uploading: false,
+            fileList: [],
+            showWenshuList: false,
+        };
     },
-
-    uploadFiles() {
-      if (this.fileList[0].response !== null) {
-        console.log(this.fileList[0].response)
-        // this.set_files([this.fileList[0].response.content].concat(this.files));
-        // this.dataList = this.files.slice((this.currentPage - this.minPage) * this.pageSize, (this.currentPage - this.minPage + 1) * this.pageSize);
-        // this.$message.success(`导入数据库成功`);
-        // this.uploader = false;
-        let reader=new FileReader();
-        reader.readAsText(this.fileList[0].response.content);
-        reader.onload=function(){
-        let file_content=reader.result;
-        var obj=JSON.parse(file_content)
-        _this.$store.commit('set_EntityList',obj.entities)
-        _this.$store.commit('set_RelationList', obj.relations);
-        console.log(this.fileList[0].response.$message);
-      }
-      setTimeout(() => {
-        this.uploading = false;
-      }, 2000);
-      }
+    methods: {
+        openUploader() {
+            this.uploader = true;
+        },
+        uploadFiles() {
+            this.showWenshuList = true;
+            if (this.fileList[0].response !== null) {
+                for(var i=0;i<this.fileList.length;i++){
+                  console.log(this.fileList[i].response);
+                }
+                // this.set_files([this.fileList[0].response.content].concat(this.files));
+                // this.dataList = this.files.slice((this.currentPage - this.minPage) * this.pageSize, (this.currentPage - this.minPage + 1) * this.pageSize);
+                // this.$message.success(`导入数据库成功`);
+                // this.uploader = false;
+                setTimeout(() => {
+                    this.uploading = false;
+                }, 2000);
+            }
+        },
+        handleChange(info) {
+            const status = info.file.status;
+            this.fileList = info.fileList;
+            console.log(this.fileList);
+            console.log(this.fileList.response);
+            console.log("调用了一次handleChange");
+            if (status === "done") {
+                this.$message.success(`${info.file.name} 上传成功.`);
+            }
+            else if (status === "error") {
+                this.$message.error(`${info.file.name} 上传失败.`);
+            }
+        },
+        handleRemove(file) {
+            const index = this.fileList.indexOf(file);
+            const newFileList = this.fileList.slice();
+            newFileList.splice(index, 1);
+            this.fileList = newFileList;
+        },
+        // checkFile(event){
+        //
+        //   let file=event.target.files[0];
+        //   this.file=file;
+        // },
+        // submitAddFile(){
+        //   let _this=this
+        //   if(this.file===null){
+        //     alert("未选定上传文件");
+        //   }
+        //   else if(this.file.size/1024/1024>100){
+        //     alert("文件过大，应不大于100MB");
+        //   }
+        //   else{
+        //     // this.file_content=this.file;
+        //     // var formData=new FormData(form);
+        //     // formData.append("data","fileContent");
+        //     let reader=new FileReader();
+        //     reader.readAsText(this.file);
+        //     reader.onload=function(){
+        //       let file_content=reader.result;
+        //       var obj=JSON.parse(file_content)
+        //       _this.$store.commit('set_EntityList',obj.entities)
+        //       _this.$store.commit('set_RelationList', obj.relations);
+        //       _this.$store.commit('set_Update_Types', []);
+        //       setTimeout(function(){
+        //         window.initGraph();
+        //       },500);
+        //     }
+        //
+        //   }
+        // },
     },
-    handleChange(info) {
-      const status = info.file.status;
-      this.fileList = info.fileList;
-      console.log(this.fileList)
-      console.log(this.fileList.response);
-      console.log("调用了一次handleChange");
-      if (status === "done") {
-        this.$message.success(`${info.file.name} 上传成功.`);
-      } else if (status === "error") {
-        this.$message.error(`${info.file.name} 上传失败.`);
-      }
-    },
-    handleRemove(file) {
-      const index = this.fileList.indexOf(file);
-      const newFileList = this.fileList.slice();
-      newFileList.splice(index, 1);
-      this.fileList = newFileList;
-    },
-
-    // checkFile(event){
-    //
-    //   let file=event.target.files[0];
-    //   this.file=file;
-    // },
-    // submitAddFile(){
-    //   let _this=this
-    //   if(this.file===null){
-    //     alert("未选定上传文件");
-    //   }
-    //   else if(this.file.size/1024/1024>100){
-    //     alert("文件过大，应不大于100MB");
-    //   }
-    //   else{
-    //     // this.file_content=this.file;
-    //     // var formData=new FormData(form);
-    //     // formData.append("data","fileContent");
-    //     let reader=new FileReader();
-    //     reader.readAsText(this.file);
-    //     reader.onload=function(){
-    //       let file_content=reader.result;
-    //       var obj=JSON.parse(file_content)
-    //       _this.$store.commit('set_EntityList',obj.entities)
-    //       _this.$store.commit('set_RelationList', obj.relations);
-    //       _this.$store.commit('set_Update_Types', []);
-    //       setTimeout(function(){
-    //         window.initGraph();
-    //       },500);
-    //     }
-    //
-    //   }
-    // },
-
-  }
+    components: { WenshuList }
 }
 
 </script>

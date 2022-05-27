@@ -203,14 +203,14 @@
               </a-row>
             </a-menu-item>
           </a-sub-menu> -->
-          <a-menu-item @click="qualityshow">
+          <!-- <a-menu-item @click="qualityshow">
             <a-row>
               <a-col :span="4">
                 <h4>质量评估</h4>
               </a-col>
               <a-col :span="16"></a-col>
             </a-row>
-          </a-menu-item>
+          </a-menu-item> -->
           <!--类型过滤-->
           <MultiSelector v-if="show"></MultiSelector>
 
