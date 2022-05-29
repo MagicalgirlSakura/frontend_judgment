@@ -3,7 +3,7 @@ import relation from "./relation"
 import {answerQuestionAPI} from "../../api/question";
 const pages={
   state:{
-    loading_visible:true,
+    loading_visible:false,
     answer_module_visible:false,
     answer_text:"",
   },

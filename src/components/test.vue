@@ -78,7 +78,7 @@ export default {
     window.kssstart=this.kssstart;
     window.downloadJson=this.downloadJson;
     this.$store.commit('set_type_setting_mode',false);
-    this.$store.dispatch('getAllEntityList','60c4bf65c319222ab4072986');
+    // this.$store.dispatch('getAllEntityList','60c4bf65c319222ab4072986');
       if(this.enableUpdate){window.setInterval(() => {
         setTimeout(function(){
           _this.updateRecord();
@@ -159,6 +159,7 @@ export default {
     initForce(){
       var _this=this;
       console.log(_this.nodes);
+      console.log(_this.links);
       if(!this.force_or_not){this.$store.commit('set_lock_all_nodes');}
       this.getTypes();
       //基于nodes与link数据初始化图谱
@@ -404,6 +405,8 @@ export default {
     },
     initGraph(){
       //将原先的图谱视图全部删除。
+      this.nodes=this.$store.getters.nodes;
+      this.links=this.$store.getters.links;
       var svg=d3.select("#svg1");
       svg.selectAll("*").remove();
       //重新画图

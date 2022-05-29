@@ -63,3 +63,11 @@ export function entitySearchAPI(data){
     params:{name:data},
   })
 }
+
+export function getGraphDataAPI(data){
+  return axios({
+    url:`/api/graph/getGraph`,
+    method:'GET',
+    params:{fileName:data},
+  })
+}
