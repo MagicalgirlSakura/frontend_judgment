@@ -12,8 +12,8 @@ import process from "process";
 //})
 //创建axios实例
 const service = axios.create({
-  //baseURL:process.env.NODE_ENV === 'production'?'http://http://111.229.244.48/8088':'http://localhost:8080',
-  baseURL:'http://111.229.244.48:8088',
+  baseURL:process.env.NODE_ENV === 'production'?'http://http://111.229.244.48/8088':'http://localhost:8080',
+  // baseURL:'http://111.229.244.48:8088',
   //withCredentials: true,
   //baseURL:'http://localhost:8088',
   timeout: 30*1000,

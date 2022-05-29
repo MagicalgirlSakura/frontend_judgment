@@ -2,10 +2,6 @@
   <div>
     <div class="upload" >
       <div  @click="openUploader">选择文书</div>
-<!--      <a href="javascript:;" class="file">-->
-<!--        <input name="file" type="file" @change="checkFile($event)" class="GraphUpload" accept=".pdf" autocomplete="off" >选择文件-->
-<!--      </a>-->
-<!--      <a-button class="uploadButtom" type="primary" @click="submitAddFile" size="small">开始上传</a-button>-->
       <a-modal  v-model="uploader" title="上传文件" @ok="uploadFiles" :ok-text="uploading?'上传中':'上传'"
                :confirm-loading="uploading">
         <a-upload-dragger

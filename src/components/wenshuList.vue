@@ -9,7 +9,7 @@
     </span>
   </a-table>
   <a-modal v-model="showquality">
-        <quality v-if="showquality"></quality>
+        <quality v-if="showquality" :filename="this.fileList[0].response.content"></quality>
   </a-modal>
 </div>
 </template>

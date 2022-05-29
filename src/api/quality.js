@@ -5,7 +5,7 @@ const api={
 export function qualityAPI(data){
   return axios({
     url:`${api.questionPre}/score`,
-    method:'GET',
+    method:'POST',
     params: {fileName:data},
   })
 }
