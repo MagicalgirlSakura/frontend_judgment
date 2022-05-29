@@ -5,13 +5,13 @@
       <span slot="customTitle">文书名</span>
 
       <span slot="action" slot-scope="text,record">
-      <a-button @click="show">质量评估</a-button>
+      <a-button @click="show(record)">质量评估</a-button>
       <a-button @click="showGraph(record)">加入图谱</a-button>
       </span>
     </a-table>
     <a-modal v-model="showquality">
-      <quality v-if="showquality"></quality>
-    </a-modal>)
+      <quality v-if="showquality" :filename="linename"></quality>
+    </a-modal>
   </div>
 </template>
 <script>
@@ -47,15 +47,21 @@ export default {
       tableData,
       columns,
       showquality: false,
+      linename:'',
     };
   },
   methods: {
-    show() {
+    show(record) {
+      this.linename=record.name;
       this.showquality = true;
+      
     },
     showGraph(record) {
 
       this.$store.dispatch('showGraph',record.name);
+      //console.log(record)
+      //console.log(record.name)
+      
     },
 
 
@@ -68,6 +74,7 @@ export default {
         count += 1;
       }
     }
+    
   },
   components: {quality}
 };

@@ -8,11 +8,11 @@
   </a-table>
   <a-divider />
   <a-card title="质量提升建议">
-    <p v-for="advice in scores[0].objectAdvice">{{advice}}</p>
+    <p v-for="advice in scores.objectAdvice">{{advice}}</p>
   </a-card>
   <a-divider />
   <a-card title="错误用法列表">
-    <p v-for="example in scores[0].wrongUsedList">{{example}}</p>
+    <p v-for="example in scores.wrongUsedList">{{example}}</p>
   </a-card>
 </div>
 </template>
@@ -60,7 +60,7 @@ export default {
   props:['filename'],
   data() {
     return {
-      scores:[],
+      scores:{},
       tableData,
       columns,
       pagination,
@@ -76,19 +76,19 @@ export default {
   methods:{
     fetchscores(){
       qualityAPI(this.filename).then(response=>{
-        this.scores.push(response);
+        this.scores=response;
         console.log(this.scores)
         var count=1;
         var sum=59954;
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].inteScore.toFixed(1),percent:((this.scores[0].level[0]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].numConsiScore.toFixed(1),percent:((this.scores[0].level[3]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].signConsiScore.toFixed(1),percent:((this.scores[0].level[2]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].consiScore.toFixed(1),percent:((this.scores[0].level[1]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].accScore.toFixed(1),percent:((this.scores[0].level[4]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].trialScore.toFixed(1),percent:((this.scores[0].level[6]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].criminalScore.toFixed(1),percent:((this.scores[0].level[5]/sum*100).toFixed(1))+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].lawScore.toFixed(1),percent:100+'%'})
-        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores[0].judgeScore.toFixed(1),percent:100+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.inteScore.toFixed(1),percent:((this.scores.level[0]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.numConsiScore.toFixed(1),percent:((this.scores.level[3]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.signConsiScore.toFixed(1),percent:((this.scores.level[2]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.consiScore.toFixed(1),percent:((this.scores.level[1]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.accScore.toFixed(1),percent:((this.scores.level[4]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.trialScore.toFixed(1),percent:((this.scores.level[6]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.criminalScore.toFixed(1),percent:((this.scores.level[5]/sum*100).toFixed(1))+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.lawScore.toFixed(1),percent:100+'%'})
+        this.tableData.push({key:count,name:qualityEnum[count++],score:this.scores.judgeScore.toFixed(1),percent:100+'%'})
       })
       
       
