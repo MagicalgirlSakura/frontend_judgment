@@ -4,6 +4,7 @@ import{
   deleteEntityAPI,
   updateEntityAPI,
   entitySearchAPI,
+  getGraphDataAPI,
 } from"@/api/entity";
 import{
   findAllRelationAPI,
@@ -279,8 +280,13 @@ const entity={
 
 
 
+    },
+    showGraph: async({commit,state},data)=>{
+      var res =await getGraphDataAPI(data);
+      commit('set_EntityList',res.nodeList)
+      commit('set_RelationList',res.relationList)
+      window.initGraph();
     }
-
   },
 
 }
